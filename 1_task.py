@@ -1,14 +1,22 @@
 from random import randint
-
 from math import *
-def funcSort(x):
-    if x>89.9:
+
+
+def funcsort(x):
+    """
+    Функция сортировки точек по величине угла
+    :param x:
+    :return:
+    Начинает сортировку с точки, которая находится ближе к оси Y в 1 координатной четверти
+    где угол стремится к 90 градусам
+    """
+    if x > 89.9999999:
         return x
     else:
-        return x+1000
+        return x + 1000
 
 
-def gen_random(a,b):
+def gen_random(a, b):
     """
     Функция генерации рандомных чисел
     a и b параметр диапазона генерации чисел
@@ -16,53 +24,53 @@ def gen_random(a,b):
     x - рандомное число
     y - рандомное число
     """
-    x = randint(a,b)
-    y = randint(a,b)
-    return x,y
+    x = randint(a, b)
+    y = randint(a, b)
+    return x, y
 
-vvod=True
+
+# цикл ввода значения количества точек. Не прекращается пока не будет введено валидное число.
+vvod = True
 while vvod:
     try:
-        n=int(input("Введите размер списка точек:"))
-        vvod=False
-    except:
+        n = int(input("Введите размер списка точек:"))
+        vvod = False
+    except ValueError:
         print("Введите целое число!")
-
-dictionary_values={}
-dictionary_length={}
-
-dictionary_rad={}
+# словари, координат, расстояний от точки 0,0, углов в градусах
+dictionary_values = {}
+dictionary_length = {}
+dictionary_rad = {}
+# цикл генерации рандомных чисел, определения длины от точки 0:0 до точки,
+# определения угла до точки.
 for i in range(n):
-    dictionary_values.update({i:gen_random(-100,100)})
-    sqrtt=round(hypot((dictionary_values[i][0]),(dictionary_values[i][1])),5)
-    degree=round(degrees(atan2((dictionary_values[i][1]),(dictionary_values[i][0]))),5)
-    dictionary_length.update({i:sqrtt})
-
-    dictionary_rad.update({i:degree})
+    dictionary_values.update({i: gen_random(-100, 100)})
+    sqrtt = round(hypot((dictionary_values[i][0]), (dictionary_values[i][1])), 5)
+    degree = round(degrees(atan2((dictionary_values[i][1]), (dictionary_values[i][0]))), 5)
+    dictionary_length.update({i: sqrtt})
+    dictionary_rad.update({i: degree})
+# Вывод точек и их координат
 print(dictionary_values)
-sort_values=(sorted(dictionary_rad.values(), key=funcSort))
 
-sort_dictionary={}
+# Сортировка значений словаря с углами, по функции funcsort
+sort_values = (sorted(dictionary_rad.values(), key=funcsort))
+# Определение координат точки исходя из осортированного списка углов точек.
+sort_dictionary = {}
 for i in range(len(sort_values)):
-
     for k in dictionary_rad.keys():
-
-        if dictionary_rad[k]==sort_values[i]:
-            sort_dictionary.update({k:sort_values[i]})
+        if dictionary_rad[k] == sort_values[i]:
+            sort_dictionary.update({k: sort_values[i]})
+# Вывод отсортированных точек и координат
 for i in sort_dictionary.keys():
-    print(f"Точка №{i}, координаты:",dictionary_values[i])
-max=0
-min=dictionary_length[0]
-average=0
-for i in dictionary_length.keys():
-    average+=dictionary_length[i]
-    if dictionary_length[i]>max:
-        max=dictionary_length[i]
-        k=i
-    if dictionary_length[i]<min:
-        min=dictionary_length[i]
-        j=i
-average=average/n
-print(f"Максимальное расстояние точки # {k} от центра с координатами{dictionary_values[k]}, длина",  max)
-print(f"Минимальное расстояние точки # {j} от центра с координатами{dictionary_values[j]}, длина",  min)
-print(f"Среднее расстояние точек от центра",  average)
+    print(f"Точка №{i}, координаты:", dictionary_values[i])
+# Определение номеров точек с максимальным и минимальными значениями отдаления от 0:0
+key_max = max(dictionary_length, key=dictionary_length.get)
+key_min = min(dictionary_length, key=dictionary_length.get)
+# Определение среднего значения отдаления
+average_length = sum(dictionary_length.values()) / len(dictionary_length.values())
+# Вывод результатов
+print(f"Максимальное расстояние точки # {key_max} от центра с координатами{dictionary_values[key_max]}, длина",
+      dictionary_length[key_max])
+print(f"Минимальное расстояние точки # {key_min} от центра с координатами{dictionary_values[key_min]}, длина",
+      dictionary_length[key_min])
+print(f"Среднее расстояние точек от центра", average_length)
