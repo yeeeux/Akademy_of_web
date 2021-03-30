@@ -55,11 +55,12 @@ for i in range(n):
     if ((dictionary_values[i][0])>0 and (dictionary_values[i][1])>0):
         if (dictionary_values[i][0])<=point_min:
             point_min = (dictionary_values[i][0])
-            print(point_min)
             key_point_min=i
 # Назначение угла, с которого будет начинаться обход
-ungle=dictionary_rad[key_point_min]
-if ungle ==0:
+
+try:
+    ungle=dictionary_rad[key_point_min]
+except NameError:
     ungle=90
 
 # Вывод точек и их координат
