@@ -8,9 +8,8 @@ def funcsort(x):
     :param x:
     :return:
     Начинает сортировку с точки, которая находится ближе к оси Y в 1 координатной четверти
-    где угол стремится к 90 градусам
     """
-    if x > 89.9999999:
+    if x >= ungle:
         return x
     else:
         return x + 1000
@@ -49,12 +48,26 @@ for i in range(n):
     degree = round(degrees(atan2((dictionary_values[i][1]), (dictionary_values[i][0]))), 5)
     dictionary_length.update({i: sqrtt})
     dictionary_rad.update({i: degree})
+
+# цикл поиска точки в 1 четверти, ближайшей к оси Y
+point_min=101
+for i in range(n):
+    if ((dictionary_values[i][0])>0 and (dictionary_values[i][1])>0):
+        if (dictionary_values[i][0])<=point_min:
+            point_min = (dictionary_values[i][0])
+            print(point_min)
+            key_point_min=i
+# Назначение угла, с которого будет начинаться обход
+ungle=dictionary_rad[key_point_min]
+if ungle ==0:
+    ungle=90
+
 # Вывод точек и их координат
 print(dictionary_values)
 
 # Сортировка значений словаря с углами, по функции funcsort
 sort_values = (sorted(dictionary_rad.values(), key=funcsort))
-# Определение координат точки исходя из осортированного списка углов точек.
+# Определение координат точек по отсортированному списку.
 sort_dictionary = {}
 for i in range(len(sort_values)):
     for k in dictionary_rad.keys():
