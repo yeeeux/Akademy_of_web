@@ -7,7 +7,8 @@ digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 robot_list = []
 letters_keys = [0, 4, 5]
 
-# функция ввода значения количества точек. Не прекращается пока не будет введено валидное число.
+
+# функция ввода колличества генерируемых номеров.
 def vvod_integer():
     vvod = True
     while vvod:
@@ -42,8 +43,6 @@ def check_number(num):
 # В ручную забитые номера.
 list_autos_numbers = ["А123АА11", "А222АА123", "А12А123", "А123СС1234", "АА123А12", "АА1А23А1А2", "ОС93МАХ1МУАА44"]
 
-count = int(vvod_integer())
-
 
 def gen_alphabet():
     """
@@ -65,8 +64,7 @@ def gen_digit():
     return str(x)
 
 
-
-
+count = int(vvod_integer())
 for j in range(count):
     number = ""
     tumbler = randint(0, 1)
@@ -90,12 +88,12 @@ for j in range(count):
 
     robot_list.append(number)
 print("Были сгенерированы следующие номера:\n", robot_list,
-      '\n они были добавлены к существуещему списку:\n',
+      '\n Они были добавлены к существуещему списку:\n',
       list_autos_numbers)
 
 # Итоговый список номеров для проверки
 list_autos_numbers += robot_list
-print("Следующие номера являются правильными")
+print("Следующие номера являются правильными:")
 # Цикл проверки валидности номера:
 for i in list_autos_numbers:
     if check_number(i) is not None:
