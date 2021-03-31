@@ -28,14 +28,18 @@ def gen_random(a, b):
     return x, y
 
 
-# цикл ввода значения количества точек. Не прекращается пока не будет введено валидное число.
-vvod = True
-while vvod:
-    try:
-        n = abs(int(input("Введите размер списка точек:")))
-        vvod = False
-    except ValueError:
-        print("Введите целое число!")
+# функция ввода значения количества точек. Не прекращается пока не будет введено валидное число.
+def vvod_integer():
+    vvod = True
+    while vvod:
+        try:
+            return abs(int(input("Введите размер списка точек:")))
+            vvod = False
+        except ValueError:
+            print("Введите целое число!")
+
+
+n = vvod_integer()
 # словари, координат, расстояний от точки 0,0, углов в градусах
 dictionary_values = {}
 dictionary_length = {}
@@ -50,18 +54,18 @@ for i in range(n):
     dictionary_rad.update({i: degree})
 
 # цикл поиска точки в 1 четверти, ближайшей к оси Y
-point_min=101
+point_min = 101
 for i in range(n):
-    if ((dictionary_values[i][0])>0 and (dictionary_values[i][1])>0):
-        if (dictionary_values[i][0])<=point_min:
+    if ((dictionary_values[i][0]) > 0 and (dictionary_values[i][1]) > 0):
+        if (dictionary_values[i][0]) <= point_min:
             point_min = (dictionary_values[i][0])
-            key_point_min=i
+            key_point_min = i
 # Назначение угла, с которого будет начинаться обход
 
 try:
-    ungle=dictionary_rad[key_point_min]
+    ungle = dictionary_rad[key_point_min]
 except NameError:
-    ungle=90
+    ungle = 90
 
 # Вывод точек и их координат
 print(dictionary_values)
