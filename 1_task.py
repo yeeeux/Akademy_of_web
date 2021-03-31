@@ -32,7 +32,7 @@ def gen_random(a, b):
 vvod = True
 while vvod:
     try:
-        n = int(input("Введите размер списка точек:"))
+        n = abs(int(input("Введите размер списка точек:")))
         vvod = False
     except ValueError:
         print("Введите целое число!")
